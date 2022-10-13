@@ -1,7 +1,7 @@
 /**
  * @file code-serial.ino
  * @author robot-arm-team, siorTeam
- * @version 0.3
+ * @version 1.0
  * @date 2022-10-13
  * 
  * @copyright Copyright (c) 2022
@@ -54,6 +54,15 @@ void chnl_com_deg_com() {
 
   PWM.setPWM(channel, 0, deg2pul(deg)); // 서보모터 동작 함수 (채널번호, 0(뭔지 모름), 각도->펄스)
 
+  // **** DEBUG ****
+  Serial.print('(');
+  Serial.print(channel);
+  Serial.print(',');
+  Serial.print(deg);
+  Serial.println(')');
+  delay(10);
+  // **** DEBUG ****
+
 }
 
 
@@ -70,9 +79,19 @@ void setup() {
 }
 
 void loop() {
+  if (Serial.available()) { // 시리얼에서 읽을 수 있으면 (=문자 있으면)
+    char a = Serial.read(); // 문자 하나하나씩 읽는다 (예: 0 , 1 8 0)
+    if (idx == BUF_MAX || a == COM_END) chnl_com_deg_com(); // 인덱스 값이 버퍼의 최댓값 초과시
+    else buf[idx] = a; //버퍼 맥스가 아니라면 버퍼의 인덱스 번호에 값 추가하고 인덱스 값 1 추가
+    idx += 1;
+  }
+}
+
+/*
+  void loop() {
    if (BT.available()) { // 블루투스에서 읽을 수 있으면 (=문자 있으면)
-      char A = BT.read(); // 문자 하나하나씩 읽는다 (예: 0 , 1 8 0) 
-      if(idx == BUF_MAX || A == COM_END) chnl_com_deg_com(); // 인덱스 값이 버퍼의 최댓값 초과시 
+      char A = BT.read(); // 문자 하나하나씩 읽는다 (예: 0 , 1 8 0)
+      if(idx == BUF_MAX || A == COM_END) chnl_com_deg_com(); // 인덱스 값이 버퍼의 최댓값 초과시
       else buf[idx] = A; //버퍼 맥스가 아니라면 버퍼의 인덱스 번호에 값 추가하고 인덱스 값 1 추가
       idx+=1;
    }
@@ -82,4 +101,5 @@ void loop() {
       BT.write(Serial.read());
    }
    // **** DEBUG ****
-}
+  }
+*/
