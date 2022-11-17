@@ -74,10 +74,10 @@ void setup() {
 
   // 초기설정
   writeRotate(0,  90, _arm[0]);
-  writeRotate(1,  90, _arm[1]);
+  writeRotate(1,  30, _arm[1]);
   writeRotate(2,  90, _arm[2]);
-  writeRotate(3,  90, _arm[3]);
-  writeRotate(4,  90, _arm[4]);
+  writeRotate(3,  45, _arm[3]);
+  writeRotate(4, 110, _arm[4]);
   writeRotate(5,   0, _arm[5]);
 }
 
