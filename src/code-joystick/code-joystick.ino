@@ -17,11 +17,11 @@
 #define ARM_WR      4  // 손목 회전
 #define ARM_GR      5  // 손
 
-#define ARM_SH_0    A0 // 1번 좌우 -> 어깨상하
-#define ARM_SH_1    A1 // 1번 상하 -> 팔꿈치
-#define ARM_SH_2    A2 // 2번 좌우 -> 어깨회전
-#define ARM_SH_3    A3 // 2번 상하 -> 손목상하
-#define ARM_SH_4    A6 // 3번 좌우 -> 손목회전
+#define ARM_SH_0    A0 // 1번 좌우 -> 어깨 회전
+#define ARM_SH_1    A1 // 1번 상하 -> 어깨 상하
+#define ARM_SH_2    A2 // 2번 좌우 -> 팔꿈치 상하
+#define ARM_SH_3    A3 // 2번 상하 -> 손목 상하
+#define ARM_SH_4    A6 // 3번 좌우 -> 손목 회전
 #define ARM_SH_5    A7 // 3번 상하 -> 손
 
 #define GR_VELOC    8  // 잡는 각도 단위
