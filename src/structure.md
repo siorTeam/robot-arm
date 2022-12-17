@@ -2,7 +2,7 @@
 
 ## 전체 연결 구조도
 
-![circuit figure](resource/robot_arm_circuit.png)
+![circuit figure](../resource/robot_arm_circuit.png)
 
 ## 부품 종류
 
