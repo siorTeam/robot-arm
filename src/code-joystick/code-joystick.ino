@@ -1,5 +1,5 @@
 /**
- * @file code-serial.ino
+ * @file code-joystick.ino
  * @author lucusowl, robot-arm-team, siorTeam
  * @version 1.1
  * @date 2022-12-17
@@ -8,10 +8,12 @@
  * 
  */
 
+// https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library
+// http://adafruit.github.io/Adafruit-PWM-Servo-Driver-Library/html
 #include <Adafruit_PWMServoDriver.h>
 
 #define ARM_SH0     0  // 어깨 회전
-#define ARM_SH1     1  // 어깨 상하1
+#define ARM_SH1     1  // 어깨 상하
 #define ARM_SH2     2  // 팔꿈치 상하
 #define ARM_EL      3  // 손목 상하
 #define ARM_WR      4  // 손목 회전
@@ -39,12 +41,13 @@
 // |     3pin |   0 ~ 180 |  45 |    90 |
 // |     4pin |   0 ~ 180 | 110 |   180 |
 // |     5pin |   0 ~  90 |   0 |    45 |
-// 현재 각도
+// 현재 각도 Current Angle
 int _arm[6] = {0,0,0,0,0,0};
 
 Adafruit_PWMServoDriver servo_driver = Adafruit_PWMServoDriver();
 
-// fix & convert range of pulse to SERVOMIN ~ SERVOMAX
+// Fix & Convert range of pulse to SERVOMIN ~ SERVOMAX
+// ang : (int) 타겟 각도값
 int ang2pul(int ang) {
   return constrain(map(ang, 0, 180, SERVOMIN, SERVOMAX), SERVOMIN, SERVOMAX);
 }
@@ -52,6 +55,7 @@ int ang2pul(int ang) {
 // 각도변화 설정
 // ch  : (int) 모터 채널 id
 // vel : (int) 각도 변화량
+// return : (int) 성공여부(성공시 0, 실패시 1)
 int writeRotate(int ch, int vel){
   int flag = true;
   int ang = _arm[ch] + vel;
@@ -66,8 +70,8 @@ int writeRotate(int ch, int vel){
   }
   if(flag) return 1;
   // 문제가 없을 경우, 모터 각도를 해당값으로 설정
-  _arm[ch] = ang;
   servo_driver.setPWM(ch, 0, ang2pul(ang));
+  _arm[ch] = ang;
   return 0;
 }
 
